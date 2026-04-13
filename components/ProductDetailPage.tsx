@@ -91,7 +91,7 @@ The basket is perfect for storage, decoration, or gift-giving. Its sturdy constr
               {product.images.map((img, idx) => (
                 <button
                   key={idx}
-                  className="flex-shrink-0 w-20 h-20 rounded-lg border-2 border-border hover:border-primary bg-card overflow-hidden"
+                  className="shrink-0 w-20 h-20 rounded-lg border-2 border-border hover:border-primary bg-card overflow-hidden"
                 >
                   <Image src={img} alt={`View ${idx + 1}`} width={80} height={80} className="w-full h-full object-cover" />
                 </button>
@@ -107,18 +107,18 @@ The basket is perfect for storage, decoration, or gift-giving. Its sturdy constr
             {/* Trust Badges */}
             <div className="bg-card border border-border rounded-lg p-4 space-y-3">
               <div className="flex items-start gap-3">
-                <Shield className="w-5 h-5 text-success flex-shrink-0 mt-0.5" />
+                <Shield className="w-5 h-5 text-success  hrink-0 mt-0.5" />
                 <div>
                   <p className="font-medium text-foreground">Physically Verified by Agent</p>
                   <p className="text-sm text-muted-foreground">Inspected on {product.verificationDate}</p>
                 </div>
               </div>
               <div className="flex items-start gap-3">
-                <Shield className="w-5 h-5 text-success flex-shrink-0 mt-0.5" />
+                <Shield className="w-5 h-5 text-success shrink-0 mt-0.5" />
                 <p className="font-medium text-foreground">Authentic Ethiopian Craft</p>
               </div>
               <div className="flex items-start gap-3">
-                <Shield className="w-5 h-5 text-success flex-shrink-0 mt-0.5" />
+                <Shield className="w-5 h-5 text-success shrink-0 mt-0.5" />
                 <p className="font-medium text-foreground">Quality Inspected</p>
               </div>
             </div>
@@ -230,15 +230,15 @@ The basket is perfect for storage, decoration, or gift-giving. Its sturdy constr
               <p className="text-sm text-foreground mb-2 font-medium">Why Buy with Confidence?</p>
               <ul className="space-y-2 text-xs text-muted-foreground">
                 <li className="flex items-center gap-2">
-                  <Shield className="w-4 h-4 text-success flex-shrink-0" />
+                  <Shield className="w-4 h-4 text-success shrink-0" />
                   Direct from verified artisans
                 </li>
                 <li className="flex items-center gap-2">
-                  <Truck className="w-4 h-4 text-success flex-shrink-0" />
+                  <Truck className="w-4 h-4 text-success shrink-0" />
                   Free shipping on orders over ETB 2000
                 </li>
                 <li className="flex items-center gap-2">
-                  <Shield className="w-4 h-4 text-success flex-shrink-0" />
+                  <Shield className="w-4 h-4 text-success shrink-0" />
                   14-day returns guarantee
                 </li>
               </ul>

@@ -99,12 +99,12 @@ export default function ShoppingCart() {
                   <div key={item.id} className="bg-card border border-border rounded-lg p-4">
                     <div className="flex gap-4">
                       {/* Thumbnail */}
-                      <div className="flex-shrink-0">
+                      <div className="shrink-0">
                         <Image src={item.image} alt={item.title} width={96} height={96} className="w-24 h-24 rounded-lg object-cover" />
                       </div>
 
                       {/* Details */}
-                      <div className="flex-grow min-w-0">
+                      <div className="grow min-w-0">
                         <h3 className="font-medium text-foreground truncate">{item.title}</h3>
                         <p className="text-sm text-muted-foreground">{item.region}</p>
                         <p className="text-sm text-primary font-medium mt-1">ETB {item.price.toLocaleString()}</p>
@@ -217,7 +217,7 @@ export default function ShoppingCart() {
                       value={promoCode}
                       onChange={(e) => setPromoCode(e.target.value)}
                       placeholder="Enter code"
-                      className="flex-grow px-3 py-2 text-sm border border-border rounded-lg bg-background text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary"
+                      className="grow px-3 py-2 text-sm border border-border rounded-lg bg-background text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary"
                     />
                     <Button
                       onClick={handleApplyPromo}
@@ -242,7 +242,7 @@ export default function ShoppingCart() {
                 {/* Trust Signals */}
                 <div className="bg-primary/5 border border-primary/20 rounded-lg p-4 space-y-3">
                   <div className="flex items-center gap-2">
-                    <Lock className="w-4 h-4 text-primary flex-shrink-0" />
+                    <Lock className="w-4 h-4 text-primary shrink-0" />
                     <p className="text-xs text-foreground">Secure checkout</p>
                   </div>
                   <p className="text-xs text-muted-foreground">

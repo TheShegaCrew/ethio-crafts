@@ -7,7 +7,16 @@ import { Button } from '@/components/ui/button'
 export default function ArtisanDashboard() {
   const [activeTab, setActiveTab] = useState('overview')
 
-  const stats = [
+  type DashboardStat = {
+    key: string
+    title: string
+    value: string
+    subtitle: string
+    icon: React.ElementType
+    valueClassName?: string
+  }
+
+  const stats: DashboardStat[] = [
     {
       key: 'totalProducts',
       title: 'Total Products',
@@ -38,7 +47,7 @@ export default function ArtisanDashboard() {
       icon: CheckCircle,
       valueClassName: 'text-success',
     },
-  ] as const
+  ]
 
   const recentActivity = [
     {
@@ -173,7 +182,7 @@ export default function ArtisanDashboard() {
                 <div className="space-y-4">
                   {recentActivity.map((activity) => (
                     <div key={activity.id} className="flex gap-4 pb-4 border-b border-border last:border-0 last:pb-0">
-                      <div className="flex-shrink-0 pt-1">
+                      <div className="shrink-0 pt-1">
                         {activity.status === 'success' && (
                           <CheckCircle className="w-5 h-5 text-success" />
                         )}
@@ -184,7 +193,7 @@ export default function ArtisanDashboard() {
                           <AlertCircle className="w-5 h-5 text-primary" />
                         )}
                       </div>
-                      <div className="flex-grow">
+                      <div className="grow">
                         <p className="font-medium text-foreground">{activity.title}</p>
                         <p className="text-sm text-muted-foreground mt-1">{activity.description}</p>
                         <p className="text-xs text-muted-foreground mt-2">{activity.date}</p>

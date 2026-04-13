@@ -38,7 +38,7 @@ export function ProductCard({
       {/* Image Container */}
       <div className="relative h-48 sm:h-56 overflow-hidden bg-muted">
         {/* Placeholder image - in production would be real image */}
-        <div className="w-full h-full bg-gradient-to-br from-primary/10 to-secondary/10 flex items-center justify-center">
+        <div className="w-full h-full bg-linear-to-br from-primary/10 to-secondary/10 flex items-center justify-center">
           <span className="text-xs text-muted-foreground text-center px-4">Product Image</span>
         </div>
 

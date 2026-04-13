@@ -153,7 +153,7 @@ export default function OrderTracking({ orderId }: OrderTrackingProps) {
 
                     {/* Timeline Dot & Content */}
                     <div className="flex gap-4">
-                      <div className="flex-shrink-0">
+                      <div className="shrink-0">
                         {item.status === 'completed' ? (
                           <CheckCircle className="w-12 h-12 text-success bg-success/10 rounded-full p-2" />
                         ) : item.status === 'current' ? (
@@ -163,7 +163,7 @@ export default function OrderTracking({ orderId }: OrderTrackingProps) {
                         )}
                       </div>
 
-                      <div className="flex-grow pt-2">
+                      <div className="grow pt-2">
                         <p className="font-semibold text-foreground text-lg">{item.step}</p>
                         <p className="text-sm text-muted-foreground">{item.date}</p>
                         <p className="text-sm text-foreground mt-1">{item.description}</p>
@@ -184,8 +184,8 @@ export default function OrderTracking({ orderId }: OrderTrackingProps) {
               <div className="space-y-4 pb-6 border-b border-border max-h-48 overflow-y-auto">
                 {order.items.map((item, idx) => (
                   <div key={idx} className="flex gap-3">
-                    <Image src={item.image} alt={item.name} width={64} height={64} className="w-16 h-16 rounded-lg object-cover flex-shrink-0" />
-                    <div className="flex-grow min-w-0">
+                    <Image src={item.image} alt={item.name} width={64} height={64} className="w-16 h-16 rounded-lg object-cover shrink-0" />
+                    <div className="grow min-w-0">
                       <p className="font-medium text-foreground text-sm truncate">{item.name}</p>
                       <p className="text-xs text-muted-foreground">Qty: {item.qty}</p>
                       <p className="text-sm font-bold text-primary mt-1">ETB {(item.price * item.qty).toLocaleString()}</p>
@@ -217,7 +217,7 @@ export default function OrderTracking({ orderId }: OrderTrackingProps) {
               {/* Shipping Address */}
               <div className="bg-muted/50 rounded-lg p-4 space-y-3">
                 <div className="flex items-start gap-2">
-                  <MapPin className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" />
+                  <MapPin className="w-4 h-4 text-primary shrink-0 mt-0.5" />
                   <div className="text-sm">
                     <p className="font-medium text-foreground">{order.shippingAddress.name}</p>
                     <p className="text-muted-foreground text-xs mt-1">{order.shippingAddress.address}</p>

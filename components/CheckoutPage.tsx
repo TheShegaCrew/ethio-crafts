@@ -216,7 +216,7 @@ export default function CheckoutPage() {
                             onChange={handleInputChange}
                             className="w-4 h-4 text-primary"
                           />
-                          <div className="ml-4 flex-grow">
+                          <div className="ml-4 grow">
                             <p className="font-medium text-foreground">{method.label}</p>
                           </div>
                           <span className="text-primary font-medium">ETB {method.price}</span>
@@ -449,7 +449,7 @@ export default function CheckoutPage() {
 
               <div className="bg-primary/5 border border-primary/20 rounded-lg p-4 space-y-3 text-xs">
                 <div className="flex items-center gap-2">
-                  <Lock className="w-4 h-4 text-primary flex-shrink-0" />
+                  <Lock className="w-4 h-4 text-primary shrink-0" />
                   <p className="text-foreground">Secure checkout with encryption</p>
                 </div>
                 <p className="text-muted-foreground leading-relaxed">
