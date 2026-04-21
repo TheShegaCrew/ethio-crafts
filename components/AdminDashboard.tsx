@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useState } from 'react'
-import { TrendingUp, Users, Package, DollarSign, Clock, AlertCircle } from 'lucide-react'
+import { TrendingUp, Users, Package, DollarSign, Clock, AlertCircle, UserPlus, ShieldCheck } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 
 export default function AdminDashboard() {
@@ -43,6 +43,16 @@ export default function AdminDashboard() {
     { id: 'SAMPLE-003', artisan: 'Meaza Getnet', product: 'Woven Shawl', submittedDays: 5 },
   ]
 
+  const agentInvitations = [
+    { id: 'INV-1001', email: 'agent.addis@example.com', region: 'Addis Ababa - Bole', status: 'Sent', expires: 'Apr 25, 2026' },
+    { id: 'INV-1002', email: 'agent.north@example.com', region: 'Bahir Dar - Central', status: 'Accepted', expires: 'Apr 22, 2026' },
+  ]
+
+  const pendingAgentApprovals = [
+    { id: 'AG-3201', name: 'Rahel Tadesse', region: 'Addis Ababa, Adama', submitted: '2 days ago' },
+    { id: 'AG-3202', name: 'Marta Alemu', region: 'Hawassa, Shashemene', submitted: '5 hours ago' },
+  ]
+
   return (
     <div className="bg-white min-h-screen font-sans">
       {/* Header */}
@@ -80,6 +90,8 @@ export default function AdminDashboard() {
             { id: 'orders', label: 'Recent Orders' },
             { id: 'products', label: 'Top Products' },
             { id: 'verification', label: 'Pending Verifications' },
+            { id: 'agentInvites', label: 'Agent Invites' },
+            { id: 'agentApprovals', label: 'Agent Approvals' },
           ].map((tab) => (
             <button
               key={tab.id}
@@ -265,6 +277,77 @@ export default function AdminDashboard() {
                   <Button variant="outline" className="border-border text-xs h-8 mt-3">
                     Review Sample
                   </Button>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {activeTab === 'agentInvites' && (
+          <div className="bg-card border border-border rounded-lg p-6">
+            <div className="flex items-center justify-between mb-4">
+              <div>
+                <h2 className="text-lg font-serif font-bold text-foreground">Agent Invitation / Registration Flow</h2>
+                <p className="text-sm text-muted-foreground mt-1">
+                  Create agent account, send secure one-time link, and track registration status.
+                </p>
+              </div>
+              <Button className="bg-primary text-primary-foreground hover:bg-primary/90">
+                <UserPlus className="w-4 h-4 mr-2" />
+                Create Agent Invite
+              </Button>
+            </div>
+            <div className="overflow-x-auto border border-border rounded-lg">
+              <table className="w-full">
+                <thead className="border-b border-border bg-muted/50">
+                  <tr>
+                    <th className="px-4 py-3 text-left text-sm font-semibold text-foreground">Invite ID</th>
+                    <th className="px-4 py-3 text-left text-sm font-semibold text-foreground">Email</th>
+                    <th className="px-4 py-3 text-left text-sm font-semibold text-foreground">Coverage Region</th>
+                    <th className="px-4 py-3 text-left text-sm font-semibold text-foreground">Status</th>
+                    <th className="px-4 py-3 text-left text-sm font-semibold text-foreground">Expires</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-border">
+                  {agentInvitations.map((invite) => (
+                    <tr key={invite.id} className="hover:bg-muted/50 transition-colors">
+                      <td className="px-4 py-3 text-sm font-mono text-primary">{invite.id}</td>
+                      <td className="px-4 py-3 text-sm text-foreground">{invite.email}</td>
+                      <td className="px-4 py-3 text-sm text-foreground">{invite.region}</td>
+                      <td className="px-4 py-3 text-sm">
+                        <span className={`inline-flex px-3 py-1 rounded-full text-xs font-medium ${
+                          invite.status === 'Accepted' ? 'bg-success/10 text-success' : 'bg-warning/10 text-warning'
+                        }`}>
+                          {invite.status}
+                        </span>
+                      </td>
+                      <td className="px-4 py-3 text-sm text-muted-foreground">{invite.expires}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        )}
+
+        {activeTab === 'agentApprovals' && (
+          <div className="bg-card border border-border rounded-lg p-6">
+            <h2 className="text-lg font-serif font-bold text-foreground mb-4">Agent Approval Queue</h2>
+            <div className="space-y-3">
+              {pendingAgentApprovals.map((agent) => (
+                <div key={agent.id} className="border border-border rounded-lg p-4 flex items-center justify-between gap-4">
+                  <div>
+                    <p className="text-sm font-semibold text-foreground">{agent.name}</p>
+                    <p className="text-xs text-muted-foreground mt-1">{agent.id} - {agent.region}</p>
+                    <p className="text-xs text-muted-foreground mt-1">Submitted: {agent.submitted}</p>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Button variant="outline" className="border-border text-xs h-8">Request Info</Button>
+                    <Button className="bg-primary text-primary-foreground hover:bg-primary/90 text-xs h-8">
+                      <ShieldCheck className="w-3 h-3 mr-1" />
+                      Approve Agent
+                    </Button>
+                  </div>
                 </div>
               ))}
             </div>

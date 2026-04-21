@@ -1,11 +1,14 @@
 'use client'
 
 import React, { useState } from 'react'
-import { MapPin, Camera, CheckCircle, AlertCircle, XCircle } from 'lucide-react'
+import Link from 'next/link'
+import { MapPin, Camera, CheckCircle, AlertCircle, XCircle, Bell, UserCircle2 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 
 export default function AgentVerification() {
+  const [activeTab, setActiveTab] = useState('verification')
   const [currentStep, setCurrentStep] = useState('task-selection')
+  const [showNotifications, setShowNotifications] = useState(false)
   const [verificationData, setVerificationData] = useState({
     measurements: { length: '', width: '', height: '', weight: '' },
     qualityRating: 0,
@@ -49,6 +52,11 @@ export default function AgentVerification() {
 
   const selectedTask = pendingTasks[0]
 
+  const agentTaskNotifications = [
+    { id: 'TSK-2101', title: 'Verify Leather Messenger Bag', artisan: 'Abeba Handmade', region: 'Bole', priority: 'High', dueDate: 'Apr 22, 2026' },
+    { id: 'TSK-2102', title: 'Review Coffee Pot Measurements', artisan: 'Mulu Pottery', region: 'Yeka', priority: 'Medium', dueDate: 'Apr 23, 2026' },
+  ]
+
   const handleMaterialToggle = (material: string) => {
     setVerificationData((prev) => ({
       ...prev,
@@ -71,13 +79,72 @@ export default function AgentVerification() {
       {/* Header */}
       <div className="border-b border-border bg-white sticky top-0 z-40">
         <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
-          <h1 className="text-3xl font-serif font-bold text-foreground">Agent Verification Interface</h1>
-          <p className="text-muted-foreground mt-1">Agent ID: AG-2847 | Tasks: {pendingTasks.length} pending</p>
+          <div className="flex items-start justify-between gap-4">
+            <div>
+              <h1 className="text-3xl font-serif font-bold text-foreground">Agent Verification Interface</h1>
+              <p className="text-muted-foreground mt-1">Agent ID: AG-2847 | Tasks: {pendingTasks.length} pending</p>
+            </div>
+            <div className="flex items-center gap-2 relative">
+              <Button
+                variant="outline"
+                className="border-border"
+                onClick={() => setShowNotifications((prev) => !prev)}
+              >
+                <Bell className="w-4 h-4 mr-2" />
+                Notifications
+              </Button>
+              <Link href="/dashboard/agent/profile">
+                <Button variant="outline" className="border-border">
+                  <UserCircle2 className="w-4 h-4 mr-2" />
+                  Profile
+                </Button>
+              </Link>
+              {showNotifications && (
+                <div className="absolute right-0 top-12 w-96 bg-card border border-border rounded-lg shadow-lg p-4 z-50">
+                  <p className="text-sm font-semibold text-foreground mb-3">Task Notifications</p>
+                  <div className="space-y-2 max-h-80 overflow-auto">
+                    {agentTaskNotifications.map((task) => (
+                      <div key={task.id} className="border border-border rounded-lg p-3">
+                        <p className="text-sm font-medium text-foreground">{task.title}</p>
+                        <p className="text-xs text-muted-foreground mt-1">{task.id} - {task.artisan} - {task.region}</p>
+                        <div className="flex items-center justify-between mt-2">
+                          <span className={`inline-flex px-2 py-1 rounded-full text-[11px] font-medium ${
+                            task.priority === 'High' ? 'bg-warning/10 text-warning' : 'bg-primary/10 text-primary'
+                          }`}>
+                            {task.priority}
+                          </span>
+                          <p className="text-[11px] text-muted-foreground">Due: {task.dueDate}</p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
         </div>
       </div>
 
       <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
-        {currentStep === 'task-selection' && (
+        <div className="mb-6 border-b border-border flex gap-8">
+          {[
+            { id: 'verification', label: 'Verification Tasks' },
+          ].map((tab) => (
+            <button
+              key={tab.id}
+              onClick={() => setActiveTab(tab.id)}
+              className={`pb-4 font-medium transition-colors ${
+                activeTab === tab.id
+                  ? 'text-primary border-b-2 border-primary -mb-px'
+                  : 'text-muted-foreground hover:text-foreground'
+              }`}
+            >
+              {tab.label}
+            </button>
+          ))}
+        </div>
+
+        {activeTab === 'verification' && currentStep === 'task-selection' && (
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             {/* Task List */}
             <div className="lg:col-span-2">
@@ -95,7 +162,7 @@ export default function AgentVerification() {
                       className="p-6 hover:bg-muted/50 cursor-pointer transition-colors"
                     >
                       <div className="flex items-start justify-between mb-4">
-                        <div className="flex-grow">
+                        <div className="grow">
                           <h3 className="font-medium text-foreground text-lg">{task.artisanName}</h3>
                           <p className="text-sm text-muted-foreground mt-1">{task.productTitle}</p>
                         </div>
@@ -167,7 +234,7 @@ export default function AgentVerification() {
           </div>
         )}
 
-        {currentStep === 'verification' && (
+        {activeTab === 'verification' && currentStep === 'verification' && (
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             {/* Verification Form */}
             <div className="lg:col-span-2 space-y-6">
@@ -299,6 +366,19 @@ export default function AgentVerification() {
                 </div>
               </div>
 
+              {/* 3D Scan Upload */}
+              <div className="bg-card border border-border rounded-lg p-6">
+                <h2 className="text-lg font-serif font-bold text-foreground mb-4">3D Scan / Model Upload</h2>
+                <p className="text-sm text-muted-foreground mb-4">
+                  Upload 3D files during verification (GLB, GLTF, OBJ, STL).
+                </p>
+                <input
+                  type="file"
+                  accept=".glb,.gltf,.obj,.stl"
+                  className="block w-full rounded-md border border-border bg-background px-3 py-2 text-sm text-foreground"
+                />
+              </div>
+
               {/* Final Decision */}
               <div className="bg-card border border-border rounded-lg p-6">
                 <h2 className="text-lg font-serif font-bold text-foreground mb-4">Final Decision</h2>
@@ -389,6 +469,7 @@ export default function AgentVerification() {
             </div>
           </div>
         )}
+
       </div>
     </div>
   )
