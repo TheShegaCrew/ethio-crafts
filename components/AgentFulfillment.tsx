@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react'
 import { Package, Truck, CheckCircle2, AlertCircle, MapPin, Phone, Mail, Loader2, Clock } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { orderService } from '@/lib/order-service'
-import { notificationService } from '@/lib/notification-service'
+import { notificationService } from '@/lib/data-service'
 import type { Order } from '@/lib/types'
 
 export default function AgentFulfillment() {
@@ -171,12 +171,12 @@ export default function AgentFulfillment() {
       }
 
       // Trigger notification
-      await notificationService.sendNotification({
+      await notificationService.create({
         userId: order.customerId,
         type: 'order_processed',
         title: 'Order Processed',
         message: `Your order ${order.orderNumber} has been processed and is ready for shipment.`,
-        metadata: { orderId: order.id },
+        relatedId: order.id,
       })
 
       setUpdateMessage({
@@ -224,16 +224,12 @@ export default function AgentFulfillment() {
       }
 
       // Trigger notification with tracking info
-      await notificationService.sendNotification({
+      await notificationService.create({
         userId: order.customerId,
         type: 'order_shipped',
         title: 'Order Shipped',
         message: `Your order ${order.orderNumber} has been shipped. Tracking: ${updateForm.trackingNumber}`,
-        metadata: {
-          orderId: order.id,
-          trackingNumber: updateForm.trackingNumber,
-          carrierName: updateForm.carrierName,
-        },
+        relatedId: order.id,
       })
 
       setUpdateMessage({
@@ -270,12 +266,12 @@ export default function AgentFulfillment() {
       }
 
       // Trigger notification
-      await notificationService.sendNotification({
+      await notificationService.create({
         userId: order.customerId,
         type: 'order_delivered',
         title: 'Order Delivered',
         message: `Your order ${order.orderNumber} has been delivered. Thank you for shopping with Ethio Crafts!`,
-        metadata: { orderId: order.id },
+        relatedId: order.id,
       })
 
       setUpdateMessage({
