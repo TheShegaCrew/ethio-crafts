@@ -1,86 +1,79 @@
-'use client'
+"use client";
 
-import React, { useState, useEffect } from 'react'
-import Image from 'next/image'
-import { ChevronLeft, ChevronRight } from 'lucide-react'
-import { Button } from '@/components/ui/button'
-
-
+import React, { useState, useEffect } from "react";
+import Image from "next/image";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 interface HeroBanner {
-  id: number
-  title: string
-  subtitle: string
-  ctaText: string
-  image: string
-  category: string
+  id: number;
+  title: string;
+  subtitle: string;
+  ctaText: string;
+  image: string;
+  category: string;
 }
 
 const banners: HeroBanner[] = [
-
- 
   {
     id: 1,
-    title: 'Authentic Ethiopian Basketry',
-    subtitle: 'Hand-woven craftsmanship passed down through generations',
-    ctaText: 'Shop Baskets',
-     image: 'https://pngimg.com/uploads/basket/basket_PNG12.png',
-    category: 'Basketry',
+    title: "Authentic Ethiopian Basketry",
+    subtitle: "Hand-woven craftsmanship passed down through generations",
+    ctaText: "Shop Baskets",
+    image: "https://pngimg.com/uploads/jewelry/jewelry_PNG6779.png",
+    category: "Basketry",
   },
   {
     id: 2,
-    title: 'Exquisite Ethiopian Jewelry',
-    subtitle: 'Stunning pieces crafted with traditional techniques',
-    ctaText: 'Shop Jewelry',
-    image: 'https://pngimg.com/uploads/jewelry/jewelry_PNG6779.png',
-    category: 'Jewelry',
+    title: "Exquisite Ethiopian Jewelry",
+    subtitle: "Stunning pieces crafted with traditional techniques",
+    ctaText: "Shop Jewelry",
+    image: "https://pngimg.com/uploads/jewelry/jewelry_PNG6779.png",
+    category: "Jewelry",
   },
   {
     id: 3,
-    title: 'Handcrafted Leather Works',
-    subtitle: 'Premium Ethiopian leather goods for every occasion',
-    ctaText: 'Shop Leather',
-     image: 'https://pngimg.com/uploads/handbag/handbag_PNG6382.png',
-    category: 'Leatherwork',
+    title: "Handcrafted Leather Works",
+    subtitle: "Premium Ethiopian leather goods for every occasion",
+    ctaText: "Shop Leather",
+    image: "https://pngimg.com/uploads/scarf/scarf_PNG12.png",
+    category: "Leatherwork",
   },
   {
     id: 4,
-    title: 'Ethiopian Textile Art',
-    subtitle: 'Colorful woven textiles and traditional fabrics',
-    ctaText: 'Shop Textiles',
-    image: 'https://pngimg.com/uploads/scarf/scarf_PNG12.png',
-    category: 'Textiles',
+    title: "Ethiopian Textile Art",
+    subtitle: "Colorful woven textiles and traditional fabrics",
+    ctaText: "Shop Textiles",
+    image: "https://pngimg.com/uploads/scarf/scarf_PNG12.png",
+    category: "Textiles",
   },
-
-
-]
-
+];
 
 export default function HeroCarousel() {
-  const [current, setCurrent] = useState(0)
-  const [autoPlay, setAutoPlay] = useState(true)
+  const [current, setCurrent] = useState(0);
+  const [autoPlay, setAutoPlay] = useState(true);
 
   useEffect(() => {
-    if (!autoPlay) return
+    if (!autoPlay) return;
 
     const timer = setInterval(() => {
-      setCurrent((prev) => (prev + 1) % banners.length)
-    }, 5000)
+      setCurrent((prev) => (prev + 1) % banners.length);
+    }, 5000);
 
-    return () => clearInterval(timer)
-  }, [autoPlay])
+    return () => clearInterval(timer);
+  }, [autoPlay]);
 
   const next = () => {
-    setCurrent((prev) => (prev + 1) % banners.length)
-    setAutoPlay(false)
-  }
+    setCurrent((prev) => (prev + 1) % banners.length);
+    setAutoPlay(false);
+  };
 
   const prev = () => {
-    setCurrent((prev) => (prev - 1 + banners.length) % banners.length)
-    setAutoPlay(false)
-  }
+    setCurrent((prev) => (prev - 1 + banners.length) % banners.length);
+    setAutoPlay(false);
+  };
 
-  const banner = banners[current]
+  const banner = banners[current];
 
   return (
     <div className="relative w-full h-[95vh] min-h-150 bg-white overflow-hidden">
@@ -108,7 +101,9 @@ export default function HeroCarousel() {
 
             {/* Description */}
             <p className="text-muted-foreground text-base sm:text-lg mb-8 max-w-lg leading-relaxed">
-              Discover the beauty of authentic Ethiopian craftsmanship. Each piece tells a story of tradition, culture, and artistic excellence passed down through generations.
+              Discover the beauty of authentic Ethiopian craftsmanship. Each
+              piece tells a story of tradition, culture, and artistic excellence
+              passed down through generations.
             </p>
 
             {/* CTA Button */}
@@ -137,11 +132,11 @@ export default function HeroCarousel() {
           <button
             key={idx}
             onClick={() => {
-              setCurrent(idx)
-              setAutoPlay(false)
+              setCurrent(idx);
+              setAutoPlay(false);
             }}
             className={`w-2 h-2 rounded-full transition-all ${
-              idx === current ? 'bg-primary w-8' : 'bg-muted-foreground/30'
+              idx === current ? "bg-primary w-8" : "bg-muted-foreground/30"
             }`}
             aria-label={`Go to slide ${idx + 1}`}
           />
@@ -166,5 +161,5 @@ export default function HeroCarousel() {
         <ChevronRight className="w-6 h-6" />
       </button>
     </div>
-  )
+  );
 }

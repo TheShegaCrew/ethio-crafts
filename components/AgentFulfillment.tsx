@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react'
 import { Package, Truck, CheckCircle2, AlertCircle, MapPin, Phone, Mail, Loader2, Clock } from 'lucide-react'
 import { Button } from '@/components/ui/button'
-import { orderService } from '@/lib/order-service'
+import { orderService } from '@/lib/data-service'
 import { notificationService } from '@/lib/data-service'
 import type { Order } from '@/lib/types'
 
@@ -35,6 +35,8 @@ export default function AgentFulfillment() {
               {
                 productId: 'prod-001',
                 productName: 'Hand-Woven Basket',
+                artisanId: 'art-001',
+                artisanName: 'Test Artisan',
                 quantity: 1,
                 price: 2500,
                 subtotal: 2500,
@@ -45,7 +47,6 @@ export default function AgentFulfillment() {
             shippingCost: 250,
             total: 3125,
             status: 'processing',
-            paymentStatus: 'paid',
             paymentMethod: 'chapa',
             shippingAddress: {
               fullName: 'John Doe',
@@ -56,11 +57,8 @@ export default function AgentFulfillment() {
               region: 'Addis Ababa',
               postalCode: '1000',
             },
-            createdAt: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).toISOString(),
-            updatedAt: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000).toISOString(),
-            trackingNumber: undefined,
-            carrierName: undefined,
-            estimatedDeliveryDate: undefined,
+            createdAt: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000),
+            updatedAt: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000),
           },
           {
             id: 'ord-002',
@@ -70,6 +68,8 @@ export default function AgentFulfillment() {
               {
                 productId: 'prod-002',
                 productName: 'Leather Messenger Bag',
+                artisanId: 'art-002',
+                artisanName: 'Test Artisan 2',
                 quantity: 1,
                 price: 4500,
                 subtotal: 4500,
@@ -80,7 +80,6 @@ export default function AgentFulfillment() {
             shippingCost: 250,
             total: 5425,
             status: 'processing',
-            paymentStatus: 'paid',
             paymentMethod: 'telebirr',
             shippingAddress: {
               fullName: 'Jane Smith',
@@ -91,11 +90,8 @@ export default function AgentFulfillment() {
               region: 'SNNPR',
               postalCode: '5000',
             },
-            createdAt: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000).toISOString(),
-            updatedAt: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000).toISOString(),
-            trackingNumber: undefined,
-            carrierName: undefined,
-            estimatedDeliveryDate: undefined,
+            createdAt: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000),
+            updatedAt: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000),
           },
           {
             id: 'ord-003',
@@ -105,6 +101,8 @@ export default function AgentFulfillment() {
               {
                 productId: 'prod-003',
                 productName: 'Traditional Coffee Roaster',
+                artisanId: 'art-003',
+                artisanName: 'Test Artisan 3',
                 quantity: 1,
                 price: 8000,
                 subtotal: 8000,
@@ -115,7 +113,6 @@ export default function AgentFulfillment() {
             shippingCost: 500,
             total: 9700,
             status: 'shipped',
-            paymentStatus: 'paid',
             paymentMethod: 'chapa',
             shippingAddress: {
               fullName: 'Ahmed Hassan',
@@ -126,11 +123,11 @@ export default function AgentFulfillment() {
               region: 'Amhara',
               postalCode: '2000',
             },
-            createdAt: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000).toISOString(),
-            updatedAt: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000).toISOString(),
+            createdAt: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000),
+            updatedAt: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000),
             trackingNumber: 'ETH-2026-123456',
             carrierName: 'Ethiopian Logistics',
-            estimatedDeliveryDate: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000).toISOString(),
+            estimatedDeliveryDate: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000),
           },
         ]
 
@@ -167,7 +164,7 @@ export default function AgentFulfillment() {
       const updatedOrder = {
         ...order,
         status: 'processed' as const,
-        updatedAt: new Date().toISOString(),
+        updatedAt: new Date(),
       }
 
       // Trigger notification
@@ -220,7 +217,7 @@ export default function AgentFulfillment() {
         trackingNumber: updateForm.trackingNumber,
         carrierName: updateForm.carrierName || 'Not specified',
         estimatedDeliveryDate: updateForm.estimatedDelivery || undefined,
-        updatedAt: new Date().toISOString(),
+        updatedAt: new Date(),
       }
 
       // Trigger notification with tracking info
@@ -262,7 +259,7 @@ export default function AgentFulfillment() {
       const updatedOrder = {
         ...order,
         status: 'delivered' as const,
-        updatedAt: new Date().toISOString(),
+        updatedAt: new Date(),
       }
 
       // Trigger notification
@@ -451,7 +448,7 @@ export default function AgentFulfillment() {
                   <div className="space-y-2 text-sm">
                     <p className="text-foreground font-medium">{selectedOrder.shippingAddress.fullName}</p>
                     <div className="flex items-start gap-2 text-muted-foreground">
-                      <MapPin className="w-4 h-4 mt-0.5 flex-shrink-0" />
+                      <MapPin className="w-4 h-4 mt-0.5 shrink-0" />
                       <p>{selectedOrder.shippingAddress.address}</p>
                     </div>
                     <div className="flex items-center gap-2 text-muted-foreground">

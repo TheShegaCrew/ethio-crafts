@@ -62,8 +62,20 @@ export interface Address {
   region: string;
   postalCode: string;
   phone: string;
+  email?: string;
   isDefault: boolean;
   createdAt: Date;
+}
+
+// Shipping Address for Orders
+export interface ShippingAddress {
+  fullName: string;
+  email: string;
+  phone: string;
+  address: string;
+  city: string;
+  region: string;
+  postalCode: string;
 }
 
 // Product Types
@@ -139,18 +151,19 @@ export type OrderStatus =
 export interface OrderItem {
   productId: string;
   productName: string;
-  artisanId: string;
-  artisanName: string;
+  artisanId?: string;
+  artisanName?: string;
   quantity: number;
   price: number;
-  total: number;
+  subtotal: number;
 }
 
 export interface Order {
   id: string;
+  orderNumber: string;
   customerId: string;
   items: OrderItem[];
-  shippingAddress: Address;
+  shippingAddress: ShippingAddress;
   subtotal: number;
   shippingCost: number;
   tax: number;
@@ -159,6 +172,8 @@ export interface Order {
   paymentMethod: 'chapa' | 'telebirr';
   paymentReference?: string;
   trackingNumber?: string;
+  carrierName?: string;
+  estimatedDeliveryDate?: Date;
   notes?: string;
   createdAt: Date;
   updatedAt: Date;
@@ -192,6 +207,7 @@ export interface VerificationTask {
 export type NotificationType =
   | 'order_placed'
   | 'order_confirmed'
+  | 'order_processed'
   | 'order_shipped'
   | 'order_delivered'
   | 'review_posted'

@@ -19,6 +19,12 @@ export const notificationTypeConfig = {
     category: 'order',
     priority: 'high',
   },
+  order_processed: {
+    title: 'Order Processed',
+    icon: '⚙️',
+    category: 'order',
+    priority: 'high',
+  },
   order_shipped: {
     title: 'Order Shipped',
     icon: '🚚',
